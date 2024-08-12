@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .container {
+            display: flex;
+            justify-content: center; /* Center the contents */
+        }
+        .form-container {
+            flex-grow: 1;
+            padding: 20px;
+        }
+        .prediction-container {
+            width: 200px; /* Maintained original width */
+            background-color: #f4f4f4;
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+        h1 {
+            text-align: center;
+            font-size: 48px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f0f0f0;
+        }
+        /* Other styles as needed */
+    </style>
+</head>
+<body>
+    
+    <h1>Loan Defaulter Prediction</h1>
+
+    <div class="container">
+        
+        <div class="form-container">
+            <!-- Your form HTML here (same as you've provided) -->
+            <form action="{{url_for('predict')}}" method='post'>
+                <!-- Form elements go here -->
+                <!-- Gender Field -->
+                <label for="Gender">Gender:</label>
+                <select name="Gender" id="Gender" required>
+                    <option value="Female">Female</option>
+                    <option value="Joint">Joint</option>
+                    <option value="Male">Male</option>
+                    <option value="Sex Not Available">Sex Not Available</option>
+                </select><br>
+
+                <!-- Loan Type Field -->
+                <label for="loan_type">Loan Type:</label>
+                <select name="loan_type" id="loan_type" required>
+                    <option value="type1">type1</option>
+                    <option value="type2">type2</option>
+                    <option value="type3">type3</option>
+                </select><br>
+
+                <!-- Loan Purpose Field -->
+                <label for="loan_purpose">Loan Purpose:</label>
+                <select name="loan_purpose" id="loan_purpose" required>
+                    <option value="p1">p1</option>
+                    <option value="p2">p2</option>
+                    <option value="p3">p3</option>
+                    <option value="p4">p4</option>
+                    </select><br>
+
+                <!-- Term Field -->
+                <label for="term">Term:</label>
+                <select name="term" id="term" required>
+                    <option value="96.0">96.0</option>
+                    <option value="108.0">108.0</option>
+                    <option value="120.0">120.0</option>
+                    <option value="132.0">132.0</option>
+                    <option value="144.0">144.0</option>
+                    <option value="156.0">156.0</option>
+                    <option value="165.0">165.0</option>
+                    <option value="168.0">168.0</option>
+                    <option value="180.0">180.0</option>
+                    <option value="192.0">192.0</option>
+                    <option value="204.0">204.0</option>
+                    <option value="216.0">216.0</option>
+                    <option value="228.0">228.0</option>
+                    <option value="240.0">240.0</option>
+                    <option value="252.0">252.0</option>
+                    <option value="264.0">264.0</option>
+                    <option value="276.0">276.0</option>
+                    <option value="280.0">280.0</option>
+                    <option value="288.0">288.0</option>
+                    <option value="300.0">300.0</option>
+                    <option value="312.0">312.0</option>
+                    <option value="322.0">322.0</option>
+                    <option value="324.0">324.0</option>
+                    <option value="336.0">336.0</option>
+                    <option value="348.0">348.0</option>
+                    <option value="360.0">360.0</option>
+                </select><br>
+
+
+                <!-- Occupancy Type Field -->
+                <label for="occupancy_type">Occupancy Type:</label>
+                <select name="occupancy_type" id="occupancy_type" required>
+                    <option value="ir">ir</option>
+                    <option value="pr">pr</option>
+                    <option value="sr">sr</option>
+                </select><br>
+
+
+                <!-- Total Units Field -->
+                <label for="total_units">Total Units:</label>
+                <select name="total_units" id="total_units" required>
+                    <option value="1U">1 Unit</option>
+                    <option value="2U">2 Units</option>
+                    <option value="3U">3 Units</option>
+                    <option value="4U">4 Units</option>
+                </select><br>
+
+                <!-- Credit Type Field -->
+                <label for="credit_type">Credit Type:</label>
+                <select name="credit_type" id="credit_type" required>
+                    <option value="CIB">CIB</option>
+                    <option value="CRIF">CRIF</option>
+                    <option value="EQUI">EQUI</option>
+                    <option value="EXP">EXP</option>
+                </select><br>
+
+                <!-- Region Field -->
+                <label for="Region">Region:</label>
+                <select name="Region" id="Region" required>
+                    <option value="North">North</option>
+                    <option value="North-East">North-East</option>
+                    <option value="central">Central</option>
+                    <option value="south">South</option>
+                </select><br>
+
+                <!-- Loan Limit Field -->
+                <label for="loan_limit">Loan Limit:</label>
+                <select name="loan_limit" id="loan_limit" required>
+                    <option value="cf">Conforming</option>
+                    <option value="ncf">Non-Conforming</option>
+                </select><br>
+
+                <!-- Approval in Advance Field -->
+                <label for="approv_in_adv">Approval in Advance:</label>
+                <select name="approv_in_adv" id="approv_in_adv" required>
+                    <option value="nopre">No Pre-Approval</option>
+                    <option value="pre">Pre-Approval</option>
+                </select><br>
+
+                <!-- Credit Worthiness Field -->
+                <label for="Credit_Worthiness">Credit Worthiness:</label>
+                <select name="Credit_Worthiness" id="Credit_Worthiness" required>
+                    <option value="l1">Level 1</option>
+                    <option value="l2">Level 2</option>
+                </select><br>
+
+                <!-- Open Credit Field -->
+                <label for="open_credit">Open Credit:</label>
+                <select name="open_credit" id="open_credit" required>
+                    <option value="nopc">No Open Credit</option>
+                    <option value="opc">Open Credit</option>
+                </select><br>
+
+                <!-- Business or Commercial Field -->
+                <label for="business_or_commercial">Business or Commercial:</label>
+                <select name="business_or_commercial" id="business_or_commercial" required>
+                    <option value="b/c">Business/Commercial</option>
+                    <option value="nob/c">Not Business/Commercial</option>
+                </select><br>
+
+                <!-- Negative Amortization Field -->
+                <label for="Neg_ammortization">Negative Amortization:</label>
+                <select name="Neg_ammortization" id="Neg_ammortization" required>
+                    <option value="neg_amm">Negative Amortization</option>
+                    <option value="not_neg">Not Negative</option>
+                </select><br>
+
+                <!-- Interest Only Field -->
+                <label for="interest_only">Interest Only:</label>
+                <select name="interest_only" id="interest_only" required>
+                    <option value="int_only">Interest Only</option>
+                    <option value="not_int">Not Interest Only</option>
+                </select><br>
+
+                <!-- Lump Sum Payment Field -->
+                <label for="lump_sum_payment">Lump Sum Payment:</label>
+                <select name="lump_sum_payment" id="lump_sum_payment" required>
+                    <option value="lpsm">Lump Sum</option>
+                    <option value="not_lpsm">Not Lump Sum</option>
+                </select><br>
+
+                <!-- Construction Type Field -->
+                <label for="construction_type">Construction Type:</label>
+                <select name="construction_type" id="construction_type" required>
+                    <option value="mh">Manufactured Housing</option>
+                    <option value="sb">Site Built</option>
+                </select><br>
+
+
+                <!-- Secured by Field -->
+                <label for="Secured_by">Secured by:</label>
+                <select name="Secured_by" id="Secured_by" required>
+                    <option value="home">Home</option>
+                    <option value="land">Land</option>
+                </select><br>
+
+                <!-- Co-applicant Credit Type Field -->
+                <label for="co-applicant_credit_type">Co-applicant Credit Type:</label>
+                <select name="co-applicant_credit_type" id="co-applicant_credit_type" required>
+                    <option value="CIB">CIB</option>
+                    <option value="EXP">EXP</option>
+                </select><br>
+
+                <!-- Security Type Field -->
+                <label for="Security_Type">Security Type:</label>
+                <select name="Security_Type" id="Security_Type" required>
+                    <option value="Indriect">Indirect</option>
+                    <option value="direct">Direct</option>
+                </select><br>
+
+                <!-- Age Field -->
+                <label for="age">Age:</label>
+                <select name="age" id="age" required>
+                    <option value="<25">Under 25</option>
+                    <option value="25-34">25-34</option>
+                    <option value="35-44">35-44</option>
+                    <option value="45-54">45-54</option>
+                    <option value="55-64">55-64</option>
+                    <option value="65-74">65-74</option>
+                    <option value=">74">Over 74</option>
+                </select><br>
+
+                <style>
+                    .warning {
+                        color: red;
+                        display: none;
+                    }
+                </style>
+                
+                <!-- Loan Amount Field -->
+                <label for="loan_amount">Loan Amount:</label>
+                <input type="number" id="loan_amount" name="loan_amount" min="26500" max="3006500" oninput="validateRange(this, 26500, 3006500)" required>
+                <span class="warning" id="loan_amount_warning">Value must be between 26,500 and 3,006,500.</span><br>
+                
+                <!-- Rate of Interest Field -->
+                <label for="rate_of_interest">Rate of Interest:</label>
+                <input type="number" id="rate_of_interest" name="rate_of_interest" min="2.125" max="8.0" step="0.001" oninput="validateRange(this, 2.125, 8.0)" required>
+                <span class="warning" id="rate_of_interest_warning">Value must be between 2.125 and 8.0.</span><br>
+                
+                <!-- Upfront Charges Field -->
+                <label for="Upfront_charges">Upfront Charges:</label>
+                <input type="number" id="Upfront_charges" name="Upfront_charges" min="0.0" max="60000.0" oninput="validateRange(this, 0.0, 60000.0)" required>
+                <span class="warning" id="Upfront_charges_warning">Value must be between 0.0 and 60,000.0.</span><br>
+                
+                <!-- Property Value Field -->
+                <label for="property_value">Property Value:</label>
+                <input type="number" id="property_value" name="property_value" min="28000.0" max="6908000.0" oninput="validateRange(this, 28000.0, 6908000.0)" required>
+                <span class="warning" id="property_value_warning">Value must be between 28,000.0 and 6,908,000.0.</span><br>
+                
+                <!-- Income Field -->
+                <label for="income">Income:</label>
+                <input type="number" id="income" name="income" min="120.0" max="377220.0" oninput="validateRange(this, 120.0, 377220.0)" required>
+                <span class="warning" id="income_warning">Value must be between 120.0 and 377,220.0.</span><br>
+                
+                <!-- LTV (Loan to Value) Field -->
+                <label for="LTV">LTV (Loan to Value):</label>
+                <input type="number" id="LTV" name="LTV" min="3.083554377" max="136.5384615" step="0.000000001" oninput="validateRange(this, 3.083554377, 136.5384615)" required>
+                <span class="warning" id="LTV_warning">Value must be between 3.083554377 and 136.5384615.</span><br>
+                
+                <!-- DTIR1 Field -->
+                <label for="dtir1">DTIR1:</label>
+                <input type="number" id="dtir1" name="dtir1" min="5.0" max="61.0" oninput="validateRange(this, 5.0, 61.0)" required>
+                <span class="warning" id="dtir1_warning">Value must be between 5.0 and 61.0.</span><br>
+                
+                <script>
+                    function validateRange(element, min, max) {
+                        var warningId = element.id + "_warning";
+                        var warningElement = document.getElementById(warningId);
+                        
+                        if (element.value < min || element.value > max) {
+                            warningElement.style.display = "block";
+                        } else {
+                            warningElement.style.display = "none";
+                        }
+                    }
+                </script>
+                
+                <button type="submit", class = 'btn btn-primary btn-block btn-large'>Predict</button>
+
+            </form>
+        </h3>
+        </div>
+        
+    
+    <div class="container">
+        <div class="prediction-container">
+            <!-- Prediction output -->
+            <table>
+                <tr>
+                    <th>Output</th>
+                    <th>{{ prediction }}</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+        
+    </div>      
+
+    <!-- Your existing JavaScript for validation -->
+    <script>
+        // JavaScript functions here
+    </script>
+
+</body>
+</html>
